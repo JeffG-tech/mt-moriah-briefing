@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mt. Moriah Briefing: Proper Conduct & Property Title Updates</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #ffffff;
+            --text-color: #f0f0f0;
+            --bg-overlay-color: rgba(0, 0, 0, 0.7);
+            --accent-color: #fca311;
+        }
 
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            background-color: #f0f2f5;
+            background-color: #14213d;
         }
 
         .slider {
@@ -28,15 +36,15 @@
             top: 0;
             left: 0;
             opacity: 0;
-            visibility: hidden;
             transition: opacity 0.6s ease-in-out;
             display: flex;
             justify-content: center;
             align-items: center;
             background-size: cover;
             background-position: center;
-            padding: 50px;
+            padding: 20px;
             box-sizing: border-box;
+            visibility: hidden;
         }
 
         .slide.active {
@@ -46,462 +54,243 @@
 
         .slide-content {
             text-align: center;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 50px;
-            border-radius: 20px;
+            color: var(--text-color);
+            background: var(--bg-overlay-color);
+            padding: 30px 40px;
+            border-radius: 15px;
             max-width: 900px;
-            animation: fadeInContent 1s ease-in-out;
-        }
-        
-        @keyframes fadeInContent {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            width: 90%;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        h1 {
-            font-size: 4.5em; /* Increased size */
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        h2 {
-            font-size: 3em; /* Increased size */
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-        
-        p, li {
-            font-size: 1.8em; /* Increased size */
-            line-height: 1.6;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        li {
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        /* Click-to-reveal items */
-        .reveal-item {
+        .slide.active .animated {
             opacity: 0;
-            transform: translateY(25px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
         }
+        
+        h1 { font-size: 2.8em; animation-delay: 0.1s; margin-top: 0;}
+        h2 { font-size: 2em; animation-delay: 0.2s; margin-bottom: 20px; color: var(--accent-color);}
+        p, li { font-size: 1.1em; line-height: 1.7; }
+        ul, ol { list-style-type: none; padding: 0; }
+        li { margin-bottom: 12px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; transition: transform 0.2s, background 0.2s; }
+        li:hover { transform: scale(1.03); background: rgba(255, 255, 255, 0.1); }
+        
+        .animated.li-1 { animation-delay: 0.3s; }
+        .animated.li-2 { animation-delay: 0.4s; }
+        .animated.li-3 { animation-delay: 0.5s; }
+        .animated.li-4 { animation-delay: 0.6s; }
+        .animated.li-5 { animation-delay: 0.7s; }
+        .animated.li-6 { animation-delay: 0.8s; }
 
-        .reveal-item.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-
-        .navigation {
+        
+        /* Navigation Controls */
+        .navigation-controls {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
+            display: flex;
+            gap: 10px;
         }
 
         .nav-btn {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 12px;
             cursor: pointer;
-            border-radius: 8px;
-            margin: 0 15px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .nav-btn:hover {
-            background-color: #ddd;
-            transform: translateY(-2px);
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: scale(1.1);
         }
-        
-        /* Specific Slide Backgrounds - Using high-quality abstract images for better text visibility */
-        #slide1 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2592&auto=format&fit=crop'); }
-        #slide2 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2670&auto=format&fit=crop'); }
-        #slide3 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=2274&auto=format&fit=crop'); }
-        #slide4, #slide7, #slide17 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1554224155-8d044b1a2577?q=80&w=2670&auto=format&fit=crop'); }
-        #slide5, #slide6 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop'); }
-        #slide8, #slide9, #slide15, #slide16, #slide18, #slide19, #slide20, #slide21, #slide22, #slide23, #slide24, #slide25 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2574&auto=format&fit=crop'); }
-        #slide10 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1558021212-51b6ec1e0c35?q=80&w=2574&auto=format&fit=crop'); }
-        #slide11 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2669&auto=format&fit=crop'); }
-        #slide12 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2573&auto=format&fit=crop'); }
-        #slide13, #slide14 { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2669&auto=format&fit=crop'); }
+        .nav-btn svg { width: 24px; height: 24px; }
 
+        /* Topics Menu */
+        .topics-menu-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        .topics-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background-color: #14213d;
+            z-index: 1002;
+            transition: right 0.4s ease-in-out;
+            padding: 60px 20px 20px;
+            box-sizing: border-box;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            overflow-y: auto;
+        }
+        .topics-nav.open { right: 0; }
+        .topics-nav h3 { color: var(--accent-color); font-size: 1.5em; margin-top: 0; }
+        .topics-nav ul { list-style: none; padding: 0; }
+        .topics-nav li {
+            padding: 15px;
+            margin: 5px 0;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: left;
+            background: none;
+        }
+        .topics-nav li:hover { background-color: var(--accent-color); color: #14213d;}
+        .close-topics-btn { position: absolute; top: 20px; right: 20px; }
+
+        /* Background Images */
+        #slide1 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2592&auto=format&fit=crop'); }
+        #slide2 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2670&auto=format&fit=crop'); }
+        #slide4 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1554224155-8d044b1a2577?q=80&w=2670&auto=format&fit=crop'); }
+        #slide6 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop'); }
+        #slide8 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2574&auto=format&fit=crop'); }
+        #slide12 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2573&auto=format&fit=crop'); }
+        #slide15 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=2574&auto=format&fit=crop'); }
+        #slide25 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2669&auto=format&fit=crop'); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            p, li { font-size: 1em; }
+            .slide-content { padding: 20px; }
+            .navigation-controls { bottom: 10px; }
+            .nav-btn { width: 45px; height: 45px; padding: 10px; }
+            .topics-nav { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
     <div class="slider">
-        <!-- Slide 1: Title Slide -->
-        <div class="slide active" id="slide1">
-            <div class="slide-content">
-                <h1>Mt. Moriah Briefing</h1>
-                <h2 class="reveal-item">Proper Conduct & Property Title Updates</h2>
-            </div>
-        </div>
-
-        <!-- Slide 2: Our Mission, Vision, and Core Values -->
-        <div class="slide" id="slide2">
-            <div class="slide-content">
-                <h2>Bakit Tayo Nandito?</h2>
-                <ul>
-                    <li class="reveal-item"><b>Faithfulness</b> – “Consistent kahit walang nanonood.”</li>
-                    <li class="reveal-item"><b>Integrity</b> – “Walang kalokohan.”</li>
-                    <li class="reveal-item"><b>Excellence</b> – “Ayusin lahat, kahit maliit na bagay.”</li>
-                    <li class="reveal-item"><b>Teamwork</b> – “Mas mabilis pag sama-sama.”</li>
-                    <li class="reveal-item"><b>Accountability</b> – “Own your actions — wag sisihan.”</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 3: Why Conduct Matters -->
-        <div class="slide" id="slide3">
-            <div class="slide-content">
-                <h2>Ang Attitude, Mas Mabenta Kesa sa Property</h2>
-                <p class="reveal-item">Kapag nakilala ka ng client na maayos, honest, at professional — kahit hindi mo pa ibenta, bibili na sila sa’yo. Conduct creates credibility.</p>
-            </div>
-        </div>
-        
-        <!-- Slide 4: Ethical Guidelines -->
-        <div class="slide" id="slide4">
-            <div class="slide-content">
-                <h2>Ang Disiplina ng Mt. Moriah Agent</h2>
-                <ul>
-                    <li class="reveal-item">Bawal mangako ng sobra.</li>
-                    <li class="reveal-item">Bawal mang-‘agaw’ ng kliyente.</li>
-                    <li class="reveal-item">Bawal unauthorized site tripping.</li>
-                    <li class="reveal-item">Bawal disrespectful behavior — lalo na sa client or co-agent.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 5: Agent Responsibilities -->
-        <div class="slide" id="slide5">
-            <div class="slide-content">
-                <h2>Hindi Ka lang Nagbebenta — Ikaw ang Representante ng May-ari</h2>
-                <ul>
-                    <li class="reveal-item">Tulungan ang clients sa documentation at follow-up.</li>
-                    <li class="reveal-item">Attend official site visits (recorded ha, para safe).</li>
-                    <li class="reveal-item">Gumamit lang ng approved templates at materials.</li>
-                    <li class="reveal-item">Never collect payments personally.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 6: Legal Awareness -->
-        <div class="slide" id="slide6">
-            <div class="slide-content">
-                <h2>Authorized, Pero Alam ang Limitasyon</h2>
-                <p class="reveal-item"><b>Do’s:</b></p>
-                <ul class="reveal-item">
-                    <li>Sabihin palagi: “Authorized Marketing Associate under the property owner.”</li>
-                    <li>Keep a copy ng affidavit for reference.</li>
-                    <li>Direct lahat ng payments sa owner or office account.</li>
-                </ul>
-                <p class="reveal-item"><b>Don’ts:</b></p>
-                <ul class="reveal-item">
-                    <li>Wag magpanggap na realty o broker.</li>
-                    <li>Wag gumawa ng legal assumptions or promises.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 7: Legal Do’s & Don’ts Recap -->
-        <div class="slide" id="slide7">
-            <div class="slide-content">
-                <h2>Legal Ka Ba? Let’s Make Sure!</h2>
-                <p class="reveal-item"><b>Do’s:</b></p>
-                <ul class="reveal-item">
-                    <li>Always record communications and receipts.</li>
-                    <li>Gamitin lang ang official templates.</li>
-                    <li>Mag-log ng clients para walang overlap.</li>
-                </ul>
-                <p class="reveal-item"><b>Don’ts:</b></p>
-                <ul class="reveal-item">
-                    <li>Wag tumanggap ng bayad sa personal GCash.</li>
-                    <li>Wag magbigay ng timeline ng titulo kung hindi pa confirmed.</li>
-                    <li>Wag gumawa ng sariling “promo.”</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 8: Facebook & Marketplace Safety -->
-        <div class="slide" id="slide8">
-            <div class="slide-content">
-                <h2>Benta Ka, Pero Di Ka Bawal!</h2>
-                <p class="reveal-item"><b>FB DO’s:</b></p>
-                <ul class="reveal-item">
-                  
-                    <li>Highlight location: “Malapit sa bypass road, tahimik, nature vibes.”</li>
-                    <li>Add disclaimer: “Prices and availability may change. Message me for full details.”</li>
-                    <li>Use 2–3 real photos lang.</li>
-                </ul>
-                <p class="reveal-item"><b>FB DON’Ts:</b></p>
-                <ul class="reveal-item">
-                    <li>Wag maglagay ng ₱rice/sqm, reservation fee, or downpayment details.</li>
-                    <li>Wag ilagay exact address or map.</li>
-                    <li>Wag ulit-ulitin ang parehong caption — spam ‘yan kay FB!</li>
-                    <li>Wag mag-tag ng random people or groups.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 9: Protecting Your Online Identity -->
-        <div class="slide" id="slide9">
-            <div class="slide-content">
-                <h2>Ang Profile Mo, Resume Mo!</h2>
-                <ul>
-                    <li class="reveal-item">Keep your name and profile consistent.</li>
-                    <li class="reveal-item">Be polite online, kahit mainit ulo ni client.</li>
-                    <li class="reveal-item">Avoid emotional rants, professionalism shows maturity.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 10: Client Confidentiality & Data Privacy -->
-        <div class="slide" id="slide10">
-            <div class="slide-content">
-                <h2>Tahimik Pero Propesyonal</h2>
-                <ul>
-                    <li class="reveal-item">Wag i-post ang pangalan, resibo, or ID ng buyer.</li>
-                    <li class="reveal-item">Wag ilabas ang TCT numbers online.</li>
-                    <li class="reveal-item">Confidential dapat lahat ng transaction details.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 11: Internal Coordination -->
-        <div class="slide" id="slide11">
-            <div class="slide-content">
-                <h2>Walang Banggaan, Lahat Kita!</h2>
-                <ul>
-                    <li class="reveal-item">Coordinate sa office bago magbigay ng updates.</li>
-                    <li class="reveal-item">I-report agad kung may fake or misleading posts.</li>
-                    <li class="reveal-item">Respect each other’s clients — teamwork, hindi competition.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 12: Title Updates -->
-        <div class="slide" id="slide12">
-            <div class="slide-content">
-                <h2>Para Alam Mo Sagot sa Tanong na “Kumusta na Title?”</h2>
-                <ul>
-                    <li class="reveal-item">I-present ang current TCT progress (Moises & Napoleon Buyagawan).</li>
-                    <li class="reveal-item">Explain title stages: from mother title → subdivision → individual titles.</li>
-                    <li class="reveal-item">Emphasize transparency.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 13: Final Reminders -->
-        <div class="slide" id="slide13">
-            <div class="slide-content">
-                <h2>Benta Nang May Disiplina</h2>
-                <ul>
-                    <li class="reveal-item">Conduct creates credibility.</li>
-                    <li class="reveal-item">Credibility builds consistent income.</li>
-                    <li class="reveal-item">Always act under authority, never outside it.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 14: Closing Message -->
-        <div class="slide" id="slide14">
-            <div class="slide-content">
-                <h2>Be Legal. Be Logical. Be Mt. Moriah.</h2>
-                <p class="reveal-item">Hindi kailangang lisensyado para maging disente. Ang kailangan lang — integrity, consistency, at respeto sa proseso. Yun ang Mt. Moriah standard.</p>
-            </div>
-        </div>
-        
-        <!-- Slide 15: Social Media Posting Rules -->
-        <div class="slide" id="slide15">
-            <div class="slide-content">
-                <h1>Social Media Posting Rules</h1>
-                <h2 class="reveal-item">Para Di Ka Ma-Ban, Ma-Report, o Ma-Demanda!</h2>
-            </div>
-        </div>
-        
-        <!-- Slide 16: Where You Can Safely Post -->
-        <div class="slide" id="slide16">
-            <div class="slide-content">
-                <h2>Safe Zones Para sa mga Post</h2>
-                <ul>
-                    <li class="reveal-item">✅ Facebook Marketplace</li>
-                    <li class="reveal-item">✅ Buy & Sell Groups or Pages</li>
-                    <li class="reveal-item">✅ Direct Messaging (Messenger, SMS, etc.)</li>
-                    
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 17: Where You Should NOT Post -->
-        <div class="slide" id="slide17">
-            <div class="slide-content">
-                <h2>Danger Zone — Avoid Posting These Publicly!</h2>
-                <ul>
-                    <li class="reveal-item">🚫 Lot Plans or Subdivision Maps</li>
-                    <li class="reveal-item">🚫 Price Lists & Installment Terms</li>
-                    <li class="reveal-item">🚫 Reservation Fees, DP, ₱/sqm</li>
-                    <li class="reveal-item">🚫 Exact Address or Google Map Pin</li>
-                    <li class="reveal-item">🚫 Investment promises (‘sure profit’)</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 18: FB Red Flags -->
-        <div class="slide" id="slide18">
-            <div class="slide-content">
-                <h2>Hidden FB Red Flags!</h2>
-                <ul>
-                    <li class="reveal-item">Repetitive captions = Spam</li>
-                    <li class="reveal-item">Too many identical posts = Restriction</li>
-                    <li class="reveal-item">Posting financial details = Violation</li>
-                    <li class="reveal-item">Posting contracts or IDs = Privacy Violation</li>
-                    <li class="reveal-item">Tagging random people = Manipulation</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 19: What You CAN Post -->
-        <div class="slide" id="slide19">
-            <div class="slide-content">
-                <h2>Ito ang mga Ligtas I-Post</h2>
-                <ul>
-                    <li class="reveal-item">✅ Location Highlights</li>
-                    <li class="reveal-item">✅ Lifestyle Angles</li>
-                    <li class="reveal-item">✅ Real Photos (2–3 Only)</li>
-                    <li class="reveal-item">✅ Disclaimer</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 20: Words That Can Get You Flagged -->
-        <div class="slide" id="slide20">
-            <div class="slide-content">
-                <h2>Mga Salitang May Sumpa!</h2>
-                <ul>
-                    <li class="reveal-item">🚫 “Raw lots”</li>
-                    <li class="reveal-item">🚫 “Installment / 3 years to pay”</li>
-                    <li class="reveal-item">🚫 “Reservation Fee / DP”</li>
-                    <li class="reveal-item">🚫 “₱ per sqm”</li>
-                    <li class="reveal-item">🚫 “Guaranteed profit”</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 21: Better Alternatives -->
-        <div class="slide" id="slide21">
-            <div class="slide-content">
-                <h2>Pang-Professional Caption Lines</h2>
-                <ul>
-                    <li class="reveal-item">✅ “Available Property Opportunities”</li>
-                    <li class="reveal-item">✅ “Flexible payment options (PM for details)”</li>
-                    <li class="reveal-item">✅ “Schedule a site visit for full details”</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 22: Caption & Photo Guide -->
-        <div class="slide" id="slide22">
-            <div class="slide-content">
-                <h2>The Anatomy of a Good Post</h2>
-                <ol style="padding-left: 0; list-style-position: inside;">
-                    <li class="reveal-item">1. Start with location or lifestyle.</li>
-                    <li class="reveal-item">2. Add soft call-to-action (CTA).</li>
-                    <li class="reveal-item">4. Use 2–3 authentic photos.</li>
-                </ol>
-            </div>
-        </div>
-        
-        <!-- Slide 23: Example of a Compliant Post -->
-        <div class="slide" id="slide23">
-            <div class="slide-content">
-                <h2>Sample Caption: Safe & Clean</h2>
-                <p class="reveal-item" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px;">“Helping families find peaceful property opportunities near Bayombong. Message me for details or to schedule a visit.”</p>
-            </div>
-        </div>
-        
-        <!-- Slide 24: How to Avoid Facebook Jail -->
-        <div class="slide" id="slide24">
-            <div class="slide-content">
-                <h2>Tips Para Hindi Ma-ban</h2>
-                <ul>
-                    <li class="reveal-item">✅ Limit to 5 varied group posts per day.</li>
-                    <li class="reveal-item">✅ Always use different photo sets.</li>
-                    <li class="reveal-item">✅ Reply to comments with DM, not numbers.</li>
-                    <li class="reveal-item">✅ Review group rules before posting.</li>
-                    <li class="reveal-item">✅ Delete old duplicate posts.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 25: Social Media Reputation Management -->
-        <div class="slide" id="slide25">
-            <div class="slide-content">
-                <h2>Your Online Business Card</h2>
-                <ul>
-                    <li class="reveal-item">✅ Post professionally, not personally.</li>
-                    <li class="reveal-item">✅ Respond politely, even to rudeness.</li>
-                    <li class="reveal-item">✅ Maintain a consistent, trustworthy profile.</li>
-                    <li class="reveal-item">✅ Every post reflects your credibility.</li>
-                </ul>
-            </div>
-        </div>
+        <!-- Slides will be injected here by JS -->
     </div>
 
-    <div class="navigation">
-        <button class="nav-btn" onclick="prevSlide()">Previous</button>
-        <button class="nav-btn" onclick="nextAction()">Next</button>
+    <!-- Main Navigation -->
+    <div class="navigation-controls">
+        <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="nav-btn" onclick="jumpToSlide(0)" aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </button>
+        <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
     </div>
+
+    <!-- Topics Menu Toggle -->
+    <button class="nav-btn topics-menu-toggle" onclick="toggleTopicsMenu()" aria-label="Open Topics Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    
+    <!-- Topics Navigation Panel -->
+    <nav class="topics-nav" id="topics-nav">
+        <button class="nav-btn close-topics-btn" onclick="toggleTopicsMenu()" aria-label="Close Topics Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <h3>Presentation Topics</h3>
+        <ul id="topics-list">
+            <!-- Topic links will be injected here by JS -->
+        </ul>
+    </nav>
 
     <script>
+        const slideData = [
+            { id: 1, title: "Mt. Moriah Briefing", subtitle: "Proper Conduct & Property Title Updates", content: "" },
+            { id: 2, title: "Bakit Tayo Nandito?", content: "<ul><li class='animated li-1'><b>Faithfulness</b> – Consistent kahit walang nanonood.</li><li class='animated li-2'><b>Integrity</b> – Walang kalokohan.</li><li class='animated li-3'><b>Excellence</b> – Ayusin lahat, kahit maliit na bagay.</li><li class='animated li-4'><b>Teamwork</b> – Mas mabilis pag sama-sama.</li><li class='animated li-5'><b>Accountability</b> – Own your actions — wag sisihan.</li></ul>" },
+            { id: 3, title: "Why Conduct Matters", content: "<p class='animated'>Ang Attitude, Mas Mabenta Kesa sa Property. Conduct creates credibility.</p>" },
+            { id: 4, title: "Ethical Guidelines", topic: "Ethics", content: "<ul><li class='animated li-1'>Bawal mangako ng sobra.</li><li class='animated li-2'>Bawal mang-‘agaw’ ng kliyente.</li><li class='animated li-3'>Bawal unauthorized site tripping.</li><li class='animated li-4'>Bawal disrespectful behavior.</li></ul>" },
+            { id: 5, title: "Agent Responsibilities", content: "<ul><li class='animated li-1'>Tulungan ang clients sa documentation.</li><li class='animated li-2'>Attend official site visits.</li><li class='animated li-3'>Gumamit lang ng approved materials.</li><li class='animated li-4'>Never collect payments personally.</li></ul>" },
+            { id: 6, title: "Legal Awareness", topic: "Legal", content: "<p class='animated li-1'><b>Do’s:</b> Sabihin palagi: “Authorized Marketing Associate.”</p><p class='animated li-2'><b>Don’ts:</b> Wag magpanggap na realty o broker.</p>" },
+            { id: 7, title: "Legal Do’s & Don’ts Recap", content: "<p class='animated li-1'><b>Do:</b> Record communications.</p><p class='animated li-2'><b>Don't:</b> Accept personal payments.</p>" },
+            { id: 8, title: "Facebook & Marketplace Safety", topic: "Social Media", content: "<p class='animated li-1'><b>Do:</b> Use disclaimer “Authorized by the property owner.”</p><p class='animated li-2'><b>Don't:</b> Post prices, fees, or exact addresses.</p>" },
+            { id: 9, title: "Protecting Your Online Identity", content: "<p class='animated'>Ang Profile Mo, Resume Mo! Keep it professional.</p>" },
+            { id: 10, title: "Client Confidentiality", content: "<p class='animated'>Do not post buyer names, receipts, or IDs. Keep transaction details confidential.</p>" },
+            { id: 11, title: "Internal Coordination", content: "<p class='animated'>Log clients to protect your leads. Respect each other's clients.</p>" },
+            { id: 12, title: "Title Updates", topic: "Titles", content: "<p class='animated'>Explain title stages honestly: from mother title → subdivision → individual titles.</p>" },
+            { id: 13, title: "Final Reminders", content: "<p class='animated'>Conduct creates credibility, which builds consistent income.</p>" },
+            { id: 14, title: "Closing Message", content: "<h1 class='animated'>Be Legal. Be Logical. Be Mt. Moriah.</h1>" },
+            { id: 15, title: "Social Media Posting Rules", subtitle: "Para Di Ka Ma-Ban, Ma-Report, o Ma-Demanda!", content: "" },
+            { id: 16, title: "Where You Can Safely Post", content: "<p class='animated'>Marketplace, Buy & Sell Groups (carefully), and Direct Messages are your safe zones.</p>" },
+            { id: 17, title: "Danger Zone — Avoid Posting These Publicly!", content: "<ul><li class='animated li-1'>🚫 Lot Plans or Maps</li><li class='animated li-2'>🚫 Price Lists & Terms</li><li class='animated li-3'>🚫 Exact Address</li><li class='animated li-4'>🚫 Investment promises</li></ul>" },
+            { id: 18, title: "FB Red Flags", content: "<p class='animated'>Repetitive captions, identical posts, and posting financial details can get your account disabled.</p>" },
+            { id: 19, title: "What You CAN Post (The Smart Way)", content: "<p class='animated'>Focus on Location Highlights, Lifestyle Angles, and always include a Disclaimer.</p>" },
+            { id: 20, title: "Words That Can Get You Flagged", content: "<p class='animated'>Avoid: “Raw lots”, “Installment”, “Reservation Fee”, “₱ per sqm”, “Guaranteed profit”.</p>" },
+            { id: 21, title: "Better Alternatives (Safe & Classy Wording)", content: "<p class='animated'>Use phrases like “Available Property Opportunities” and “Flexible payment options (to be discussed privately).”</p>" },
+            { id: 22, title: "Anatomy of a Good Post", content: "<ol><li class='animated li-1'>1. Start with location/lifestyle.</li><li class='animated li-2'>2. Add soft call-to-action.</li><li class='animated li-3'>3. End with disclaimer.</li><li class='animated li-4'>4. Use 2-3 authentic photos.</li></ol>" },
+            { id: 23, title: "Example of a Compliant Post", content: "<p class='animated'>“Helping families find peaceful property opportunities near Bayombong. Message me for details. (Authorized by property owner to assist buyers.)”</p>" },
+            { id: 24, title: "How to Avoid Facebook Jail", content: "<p class='animated'>Limit group posts, vary photos and captions, and move financial discussions to direct messages.</p>" },
+            { id: 25, title: "Social Media Reputation", topic: "Reputation", content: "<p class='animated'>Clients stalk before they talk — make sure your wall sells trust, not drama.</p>" },
+        ];
+        
+        const slider = document.querySelector('.slider');
+        const topicsList = document.getElementById('topics-list');
         let currentSlide = 0;
+        
+        // Generate Slides and Topics Menu
+        slideData.forEach((data, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            slide.id = `slide${data.id}`;
+            
+            // Apply unique backgrounds to key slides
+            const keyBgSlides = [1, 2, 4, 6, 8, 12, 15, 25];
+            if (!keyBgSlides.includes(data.id)) {
+                 slide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1529307474719-3d0a4172cd52?q=80&w=2670&auto=format&fit=crop')`;
+            }
+            
+            slide.innerHTML = `
+                <div class="slide-content">
+                    <h1 class="animated">${data.title}</h1>
+                    ${data.subtitle ? `<h2 class="animated">${data.subtitle}</h2>` : ''}
+                    ${data.content}
+                </div>
+            `;
+            slider.appendChild(slide);
+            
+            // Add to topics menu if it's a key topic
+            if (data.topic) {
+                const topicItem = document.createElement('li');
+                topicItem.textContent = data.topic;
+                topicItem.onclick = () => jumpToSlide(index);
+                topicsList.appendChild(topicItem);
+            }
+        });
+
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
 
         function showSlide(index) {
-            // Hide all revealable items on all slides first
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-                slide.querySelectorAll('.reveal-item').forEach(item => {
-                    item.classList.remove('visible');
-                });
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
             });
-
-            // Make the new slide active
-            slides[index].classList.add('active');
         }
 
-        function nextAction() {
-            const activeSlide = slides[currentSlide];
-            const itemsToReveal = activeSlide.querySelectorAll('.reveal-item:not(.visible)');
-
-            if (itemsToReveal.length > 0) {
-                // Reveal the next item on the current slide
-                itemsToReveal[0].classList.add('visible');
-            } else {
-                // If all items are visible, go to the next slide
-                goToNextSlide();
-            }
-        }
-        
-        function goToNextSlide() {
+        function nextSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
             showSlide(currentSlide);
         }
@@ -510,17 +299,33 @@
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             showSlide(currentSlide);
         }
+        
+        function jumpToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+            toggleTopicsMenu(false); // Close menu on selection
+        }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                nextAction();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
+        function toggleTopicsMenu(forceState) {
+            const menu = document.getElementById('topics-nav');
+            if (typeof forceState === 'boolean') {
+                menu.classList.toggle('open', forceState);
+            } else {
+                menu.classList.toggle('open');
             }
-        });
+        }
 
-        // Initialize the first slide
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
+            else if (e.key === 'Escape') toggleTopicsMenu(false);
+        });
+        
+        // Initial load
         showSlide(currentSlide);
+
     </script>
 </body>
 </html>
+```
