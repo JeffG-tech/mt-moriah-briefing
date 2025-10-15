@@ -1,10 +1,10 @@
-```html
+print("""
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mt. Moriah Briefing: Proper Conduct & Property Title Updates</title>
+    <title>Mt. Moriah Briefing: Modern Presentation</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
@@ -13,6 +13,7 @@
             --text-color: #f0f0f0;
             --bg-overlay-color: rgba(0, 0, 0, 0.7);
             --accent-color: #fca311;
+            --bad-color: rgba(255, 69, 58, 0.8);
         }
 
         body, html {
@@ -23,11 +24,7 @@
             background-color: #14213d;
         }
 
-        .slider {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
+        .slider { width: 100%; height: 100%; position: relative; }
 
         .slide {
             width: 100%;
@@ -36,7 +33,6 @@
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 0.6s ease-in-out;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,11 +41,14 @@
             padding: 20px;
             box-sizing: border-box;
             visibility: hidden;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(1.05);
         }
 
         .slide.active {
             opacity: 1;
             visibility: visible;
+            transform: scale(1);
         }
 
         .slide-content {
@@ -77,202 +76,108 @@
         li { margin-bottom: 12px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; transition: transform 0.2s, background 0.2s; }
         li:hover { transform: scale(1.03); background: rgba(255, 255, 255, 0.1); }
         
-        .animated.li-1 { animation-delay: 0.3s; }
-        .animated.li-2 { animation-delay: 0.4s; }
-        .animated.li-3 { animation-delay: 0.5s; }
-        .animated.li-4 { animation-delay: 0.6s; }
-        .animated.li-5 { animation-delay: 0.7s; }
-        .animated.li-6 { animation-delay: 0.8s; }
+        .animated.li-1 { animation-delay: 0.3s; } .animated.li-2 { animation-delay: 0.4s; }
+        .animated.li-3 { animation-delay: 0.5s; } .animated.li-4 { animation-delay: 0.6s; }
+        .animated.li-5 { animation-delay: 0.7s; } .animated.li-6 { animation-delay: 0.8s; }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         
-        /* Navigation Controls */
-        .navigation-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            padding: 12px;
-            cursor: pointer;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .nav-btn:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-            transform: scale(1.1);
-        }
+        .navigation-controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 10px; }
+        .nav-btn { background-color: rgba(0, 0, 0, 0.5); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 12px; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; transition: background-color 0.3s, transform 0.3s; }
+        .nav-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); transform: scale(1.1); }
         .nav-btn svg { width: 24px; height: 24px; }
 
-        /* Topics Menu */
-        .topics-menu-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-        .topics-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100%;
-            background-color: #14213d;
-            z-index: 1002;
-            transition: right 0.4s ease-in-out;
-            padding: 60px 20px 20px;
-            box-sizing: border-box;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
-            overflow-y: auto;
-        }
+        .topics-menu-toggle { position: absolute; top: 20px; right: 20px; z-index: 1001; }
+        .topics-nav { position: fixed; top: 0; right: -100%; width: 300px; height: 100%; background-color: #14213d; z-index: 1002; transition: right 0.4s ease-in-out; padding: 60px 20px 20px; box-sizing: border-box; box-shadow: -5px 0 15px rgba(0,0,0,0.3); overflow-y: auto; }
         .topics-nav.open { right: 0; }
         .topics-nav h3 { color: var(--accent-color); font-size: 1.5em; margin-top: 0; }
         .topics-nav ul { list-style: none; padding: 0; }
-        .topics-nav li {
-            padding: 15px;
-            margin: 5px 0;
-            color: var(--primary-color);
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            text-align: left;
-            background: none;
-        }
+        .topics-nav li { padding: 15px; margin: 5px 0; color: var(--primary-color); cursor: pointer; border-radius: 5px; transition: background-color 0.3s; text-align: left; background: none; }
         .topics-nav li:hover { background-color: var(--accent-color); color: #14213d;}
         .close-topics-btn { position: absolute; top: 20px; right: 20px; }
 
-        /* Background Images */
-        #slide1 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2592&auto=format&fit=crop'); }
-        #slide2 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2670&auto=format&fit=crop'); }
-        #slide4 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1554224155-8d044b1a2577?q=80&w=2670&auto=format&fit=crop'); }
-        #slide6 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop'); }
-        #slide8 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2574&auto=format&fit=crop'); }
-        #slide12 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2573&auto=format&fit=crop'); }
-        #slide15 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=2574&auto=format&fit=crop'); }
-        #slide25 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2669&auto=format&fit=crop'); }
+        /* VISUALIZATION STYLES */
+        .fb-post-mockup { background-color: #fff; color: #1c1e21; border-radius: 8px; padding: 15px; max-width: 500px; margin: auto; text-shadow: none; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .fb-post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .fb-profile-pic { width: 50px; height: 50px; border-radius: 50%; }
+        .fb-profile-name { font-weight: 600; }
+        .fb-post-timestamp { font-size: 0.8em; color: #65676b; }
+        .fb-post-body p { font-size: 1em; color: #1c1e21; line-height: 1.5; margin: 5px 0; }
+        .fb-post-image img { width: 100%; border-radius: 8px; margin-top: 10px; }
 
-        /* Responsive Design */
+        .post-analysis { padding: 10px; }
+        .bad-example { font-size: 1.2em; line-height: 1.8; color: #fff; }
+        .highlight-bad { background-color: var(--bad-color); padding: 3px 8px; border-radius: 5px; font-weight: bold; white-space: nowrap; }
+        .highlight-bad::before { content: '🚫 '; }
+
+        .post-anatomy { width: 100%; text-align: left; }
+        .anatomy-item { position: relative; margin-bottom: 25px; animation-delay: 0.4s; }
+        .code-snippet { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 1.1em; border-left: 4px solid var(--accent-color); }
+        .arrow-label { margin-top: 8px; margin-left: 30px; color: var(--accent-color); font-weight: bold; position: relative; }
+        .arrow-label::before { content: '⤴'; font-size: 2em; position: absolute; left: -30px; top: -18px; }
+
+        /* Background Images */
+        #slide1, #slide14, #slide25 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2669&auto=format&fit=crop'); }
+        #slide2, #slide11 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2670&auto=format&fit=crop'); }
+        #slide4, #slide7 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1554224155-8d044b1a2577?q=80&w=2670&auto=format&fit=crop'); }
+        #slide8, #slide15, #slide24 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2574&auto=format&fit=crop'); }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.5em; }
-            p, li { font-size: 1em; }
-            .slide-content { padding: 20px; }
-            .navigation-controls { bottom: 10px; }
-            .nav-btn { width: 45px; height: 45px; padding: 10px; }
-            .topics-nav { width: 100%; }
+            h1 { font-size: 2em; } h2 { font-size: 1.5em; } p, li { font-size: 1em; }
+            .slide-content { padding: 20px; } .navigation-controls { bottom: 10px; }
+            .nav-btn { width: 45px; height: 45px; padding: 10px; } .topics-nav { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="slider">
-        <!-- Slides will be injected here by JS -->
-    </div>
+    <div class="slider"></div>
 
-    <!-- Main Navigation -->
     <div class="navigation-controls">
-        <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button class="nav-btn" onclick="jumpToSlide(0)" aria-label="Home">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        </button>
-        <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
+        <button class="nav-btn" onclick="prevSlide()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="nav-btn" onclick="jumpToSlide(0)" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></button>
+        <button class="nav-btn" onclick="nextSlide()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
 
-    <!-- Topics Menu Toggle -->
-    <button class="nav-btn topics-menu-toggle" onclick="toggleTopicsMenu()" aria-label="Open Topics Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    </button>
+    <button class="nav-btn topics-menu-toggle" onclick="toggleTopicsMenu()" aria-label="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
     
-    <!-- Topics Navigation Panel -->
     <nav class="topics-nav" id="topics-nav">
-        <button class="nav-btn close-topics-btn" onclick="toggleTopicsMenu()" aria-label="Close Topics Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        <button class="nav-btn close-topics-btn" onclick="toggleTopicsMenu()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         <h3>Presentation Topics</h3>
-        <ul id="topics-list">
-            <!-- Topic links will be injected here by JS -->
-        </ul>
+        <ul id="topics-list"></ul>
     </nav>
 
     <script>
         const slideData = [
             { id: 1, title: "Mt. Moriah Briefing", subtitle: "Proper Conduct & Property Title Updates", content: "" },
-            { id: 2, title: "Bakit Tayo Nandito?", content: "<ul><li class='animated li-1'><b>Faithfulness</b> – Consistent kahit walang nanonood.</li><li class='animated li-2'><b>Integrity</b> – Walang kalokohan.</li><li class='animated li-3'><b>Excellence</b> – Ayusin lahat, kahit maliit na bagay.</li><li class='animated li-4'><b>Teamwork</b> – Mas mabilis pag sama-sama.</li><li class='animated li-5'><b>Accountability</b> – Own your actions — wag sisihan.</li></ul>" },
-            { id: 3, title: "Why Conduct Matters", content: "<p class='animated'>Ang Attitude, Mas Mabenta Kesa sa Property. Conduct creates credibility.</p>" },
+            { id: 2, title: "Our Mission & Values", content: "<ul><li class='animated li-1'><b>Faithfulness</b> – Consistent kahit walang nanonood.</li><li class='animated li-2'><b>Integrity</b> – Walang kalokohan.</li><li class='animated li-3'><b>Excellence</b> – Ayusin lahat, kahit maliit na bagay.</li><li class='animated li-4'><b>Teamwork</b> – Mas mabilis pag sama-sama.</li><li class='animated li-5'><b>Accountability</b> – Own your actions.</li></ul>" },
             { id: 4, title: "Ethical Guidelines", topic: "Ethics", content: "<ul><li class='animated li-1'>Bawal mangako ng sobra.</li><li class='animated li-2'>Bawal mang-‘agaw’ ng kliyente.</li><li class='animated li-3'>Bawal unauthorized site tripping.</li><li class='animated li-4'>Bawal disrespectful behavior.</li></ul>" },
-            { id: 5, title: "Agent Responsibilities", content: "<ul><li class='animated li-1'>Tulungan ang clients sa documentation.</li><li class='animated li-2'>Attend official site visits.</li><li class='animated li-3'>Gumamit lang ng approved materials.</li><li class='animated li-4'>Never collect payments personally.</li></ul>" },
-            { id: 6, title: "Legal Awareness", topic: "Legal", content: "<p class='animated li-1'><b>Do’s:</b> Sabihin palagi: “Authorized Marketing Associate.”</p><p class='animated li-2'><b>Don’ts:</b> Wag magpanggap na realty o broker.</p>" },
-            { id: 7, title: "Legal Do’s & Don’ts Recap", content: "<p class='animated li-1'><b>Do:</b> Record communications.</p><p class='animated li-2'><b>Don't:</b> Accept personal payments.</p>" },
-            { id: 8, title: "Facebook & Marketplace Safety", topic: "Social Media", content: "<p class='animated li-1'><b>Do:</b> Use disclaimer “Authorized by the property owner.”</p><p class='animated li-2'><b>Don't:</b> Post prices, fees, or exact addresses.</p>" },
-            { id: 9, title: "Protecting Your Online Identity", content: "<p class='animated'>Ang Profile Mo, Resume Mo! Keep it professional.</p>" },
-            { id: 10, title: "Client Confidentiality", content: "<p class='animated'>Do not post buyer names, receipts, or IDs. Keep transaction details confidential.</p>" },
-            { id: 11, title: "Internal Coordination", content: "<p class='animated'>Log clients to protect your leads. Respect each other's clients.</p>" },
-            { id: 12, title: "Title Updates", topic: "Titles", content: "<p class='animated'>Explain title stages honestly: from mother title → subdivision → individual titles.</p>" },
-            { id: 13, title: "Final Reminders", content: "<p class='animated'>Conduct creates credibility, which builds consistent income.</p>" },
-            { id: 14, title: "Closing Message", content: "<h1 class='animated'>Be Legal. Be Logical. Be Mt. Moriah.</h1>" },
-            { id: 15, title: "Social Media Posting Rules", subtitle: "Para Di Ka Ma-Ban, Ma-Report, o Ma-Demanda!", content: "" },
-            { id: 16, title: "Where You Can Safely Post", content: "<p class='animated'>Marketplace, Buy & Sell Groups (carefully), and Direct Messages are your safe zones.</p>" },
-            { id: 17, title: "Danger Zone — Avoid Posting These Publicly!", content: "<ul><li class='animated li-1'>🚫 Lot Plans or Maps</li><li class='animated li-2'>🚫 Price Lists & Terms</li><li class='animated li-3'>🚫 Exact Address</li><li class='animated li-4'>🚫 Investment promises</li></ul>" },
-            { id: 18, title: "FB Red Flags", content: "<p class='animated'>Repetitive captions, identical posts, and posting financial details can get your account disabled.</p>" },
-            { id: 19, title: "What You CAN Post (The Smart Way)", content: "<p class='animated'>Focus on Location Highlights, Lifestyle Angles, and always include a Disclaimer.</p>" },
-            { id: 20, title: "Words That Can Get You Flagged", content: "<p class='animated'>Avoid: “Raw lots”, “Installment”, “Reservation Fee”, “₱ per sqm”, “Guaranteed profit”.</p>" },
-            { id: 21, title: "Better Alternatives (Safe & Classy Wording)", content: "<p class='animated'>Use phrases like “Available Property Opportunities” and “Flexible payment options (to be discussed privately).”</p>" },
-            { id: 22, title: "Anatomy of a Good Post", content: "<ol><li class='animated li-1'>1. Start with location/lifestyle.</li><li class='animated li-2'>2. Add soft call-to-action.</li><li class='animated li-3'>3. End with disclaimer.</li><li class='animated li-4'>4. Use 2-3 authentic photos.</li></ol>" },
-            { id: 23, title: "Example of a Compliant Post", content: "<p class='animated'>“Helping families find peaceful property opportunities near Bayombong. Message me for details. (Authorized by property owner to assist buyers.)”</p>" },
-            { id: 24, title: "How to Avoid Facebook Jail", content: "<p class='animated'>Limit group posts, vary photos and captions, and move financial discussions to direct messages.</p>" },
-            { id: 25, title: "Social Media Reputation", topic: "Reputation", content: "<p class='animated'>Clients stalk before they talk — make sure your wall sells trust, not drama.</p>" },
+            { id: 6, title: "Legal Awareness", topic: "Legal", content: "<p class='animated li-1'><b>Do:</b> Always state you are an “Authorized Marketing Associate.”</p><p class='animated li-2'><b>Don’t:</b> Pretend to be a broker or realty.</p>" },
+            { id: 8, title: "Social Media Safety", topic: "Social Media", content: "<p class='animated li-1'><b>Do:</b> Use the disclaimer “Authorized by the property owner.”</p><p class='animated li-2'><b>Don’t:</b> Post prices, fees, or exact addresses publicly.</p>" },
+            { id: 12, title: "Title Updates", topic: "Titles", content: "<p class='animated'>Explain title stages honestly: from mother title → subdivision → individual titles. Transparency builds trust.</p>" },
+            { id: 15, title: "Social Media Rules", subtitle: "How to Avoid Bans, Reports, and Legal Issues", content: "" },
+            { id: 17, title: "DANGER ZONE: What NOT to Post", content: "<ul><li class='animated li-1'>🚫 Lot Plans or Subdivision Maps</li><li class='animated li-2'>🚫 Price Lists & Installment Terms</li><li class='animated li-3'>🚫 Exact Address or Google Map Pin</li><li class='animated li-4'>🚫 Investment promises (‘sure profit’)</li></ul>" },
+            { id: 20, title: "Words That Get You Flagged", content: `<div class="post-analysis animated"><p class="bad-example">For Sale: <span class="highlight-bad">Raw Lots</span>! Only <span class="highlight-bad">15k reservation</span>, <span class="highlight-bad">3 years to pay</span>. Low price of <span class="highlight-bad">₱1500 per sqm</span>. <span class="highlight-bad">Guaranteed profit</span>!</p></div>` },
+            { id: 22, title: "Anatomy of a Good Post", content: `<div class="post-anatomy"><div class="anatomy-item animated"><p class="code-snippet">“Peaceful living near Bayombong — nature vibes, fresh air!”</p><div class="arrow-label">Start with location or lifestyle.</div></div><div class="anatomy-item animated" style="animation-delay: 0.6s;"><p class="code-snippet">“Message me for full details or to schedule a visit.”</p><div class="arrow-label">Add a soft Call-to-Action.</div></div><div class="anatomy-item animated" style="animation-delay: 0.8s;"><p class="code-snippet">“(Authorized by property owner to assist buyers.)”</p><div class="arrow-label">End with a disclaimer.</div></div></div>` },
+            { id: 23, title: "Clean & Compliant Post Example", content: `<div class="fb-post-mockup animated"><div class="fb-post-header"><img src="https://i.pravatar.cc/50?u=mtmoriah" alt="Profile" class="fb-profile-pic"><div><div class="fb-profile-name">Mt. Moriah Agent</div><div class="fb-post-timestamp">Just now · 🌎</div></div></div><div class="fb-post-body"><p>Helping families find peaceful property opportunities near Bayombong. 🌳</p><p>Message me for details or to schedule a site visit.</p><p><small></p></div><div class="fb-post-image"><img src="https://drive.google.com/file/d/1n11XVZJljnJnCsafqRBOzgPGqTeU7E2K/view?usp=sharing" alt="Property Image"></div></div>` },
+            { id: 25, title: "Your Reputation Matters", topic: "Reputation", content: "<p class='animated'>Clients stalk before they talk. Make sure your online presence sells trust, not drama.</p>" },
+            { id: 14, title: "Final Message", content: "<h1 class='animated'>Be Legal. Be Logical. Be Mt. Moriah.</h1>" },
         ];
         
         const slider = document.querySelector('.slider');
         const topicsList = document.getElementById('topics-list');
         let currentSlide = 0;
         
-        // Generate Slides and Topics Menu
         slideData.forEach((data, index) => {
             const slide = document.createElement('div');
             slide.className = 'slide';
             slide.id = `slide${data.id}`;
-            
-            // Apply unique backgrounds to key slides
-            const keyBgSlides = [1, 2, 4, 6, 8, 12, 15, 25];
-            if (!keyBgSlides.includes(data.id)) {
-                 slide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1529307474719-3d0a4172cd52?q=80&w=2670&auto=format&fit=crop')`;
-            }
-            
-            slide.innerHTML = `
-                <div class="slide-content">
-                    <h1 class="animated">${data.title}</h1>
-                    ${data.subtitle ? `<h2 class="animated">${data.subtitle}</h2>` : ''}
-                    ${data.content}
-                </div>
-            `;
+            const defaultBg = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1529307474719-3d0a4172cd52?q=80&w=2670&auto=format&fit=crop')`;
+            slide.style.backgroundImage = slide.style.backgroundImage || defaultBg;
+
+            slide.innerHTML = `<div class="slide-content"><h1 class="animated">${data.title}</h1>${data.subtitle ? `<h2 class="animated">${data.subtitle}</h2>` : ''}${data.content}</div>`;
             slider.appendChild(slide);
             
-            // Add to topics menu if it's a key topic
             if (data.topic) {
                 const topicItem = document.createElement('li');
                 topicItem.textContent = data.topic;
@@ -284,48 +189,20 @@
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-        }
+        function showSlide(index) { slides.forEach((s, i) => s.classList.toggle('active', i === index)); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; showSlide(currentSlide); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; showSlide(currentSlide); }
+        function jumpToSlide(index) { currentSlide = index; showSlide(currentSlide); toggleTopicsMenu(false); }
+        function toggleTopicsMenu(force) { document.getElementById('topics-nav').classList.toggle('open', force); }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        }
-        
-        function jumpToSlide(index) {
-            currentSlide = index;
-            showSlide(currentSlide);
-            toggleTopicsMenu(false); // Close menu on selection
-        }
-
-        function toggleTopicsMenu(forceState) {
-            const menu = document.getElementById('topics-nav');
-            if (typeof forceState === 'boolean') {
-                menu.classList.toggle('open', forceState);
-            } else {
-                menu.classList.toggle('open');
-            }
-        }
-
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') nextSlide();
             else if (e.key === 'ArrowLeft') prevSlide();
             else if (e.key === 'Escape') toggleTopicsMenu(false);
         });
         
-        // Initial load
         showSlide(currentSlide);
-
     </script>
 </body>
 </html>
-```
+""")
